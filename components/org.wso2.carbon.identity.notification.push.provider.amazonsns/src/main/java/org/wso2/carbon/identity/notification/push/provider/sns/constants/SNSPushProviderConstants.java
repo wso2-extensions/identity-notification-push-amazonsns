@@ -23,6 +23,10 @@ package org.wso2.carbon.identity.notification.push.provider.sns.constants;
  */
 public class SNSPushProviderConstants {
 
+    private SNSPushProviderConstants() {
+
+    }
+
     public static final String SNS_PROVIDER_NAME = "AmazonSNS";
     public static final String SNS_SECRET_REFERENCE = "SNS-credentials";
 
@@ -39,7 +43,7 @@ public class SNSPushProviderConstants {
     public static final String SNS_TOKEN = "Token";
     public static final String SNS_ENABLED = "Enabled";
 
-    //Baidu specific constants
+    // Baidu specific constants
     public static final String SNS_BAIDU_USERID = "UserId";
     public static final String SNS_BAIDU_CHANNEL_ID = "ChannelId";
 }

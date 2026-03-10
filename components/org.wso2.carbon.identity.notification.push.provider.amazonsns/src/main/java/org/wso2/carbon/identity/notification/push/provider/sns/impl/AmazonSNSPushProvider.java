@@ -64,17 +64,24 @@ import static org.wso2.carbon.identity.notification.push.provider.constant.PushP
 public class AmazonSNSPushProvider implements PushProvider {
     private static final Log log = LogFactory.getLog(AmazonSNSPushProvider.class);
 
+    /**
+     * Initializes the Amazon SNS Push Provider.
+     */
     public AmazonSNSPushProvider() {
         if (log.isDebugEnabled()) {
             log.debug("Amazon SNS Push Provider initialized successfully.");
         }
     }
+
     @Override
     public String getName() {
 
         return SNSPushProviderConstants.SNS_PROVIDER_NAME;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void sendNotification(PushNotificationData pushNotificationData, PushSenderData pushSenderData,
                                  String tenantDomain) throws PushProviderException {
@@ -167,6 +174,9 @@ public class AmazonSNSPushProvider implements PushProvider {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void registerDevice(PushDeviceData pushDeviceData, PushSenderData pushSenderData)
             throws PushProviderException {
@@ -253,6 +263,9 @@ public class AmazonSNSPushProvider implements PushProvider {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void unregisterDevice(PushDeviceData pushDeviceData, PushSenderData pushSenderData)
             throws PushProviderException {
@@ -283,11 +296,14 @@ public class AmazonSNSPushProvider implements PushProvider {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateDevice(PushDeviceData pushDeviceData, PushSenderData pushSenderData)
             throws PushProviderException {
 
-        //Validations
+        // Validations
         if (!validateSNSCredentials(pushSenderData.getProperties())) {
             PushProviderConstants.ErrorMessages error =
                     PushProviderConstants.ErrorMessages.ERROR_PUSH_DEVICE_UPDATE_FAILED;
@@ -295,7 +311,7 @@ public class AmazonSNSPushProvider implements PushProvider {
         }
 
         SNSPlatformApplication platform = SNSPlatformApplication.getByEndpointArn(pushDeviceData.getDeviceHandle());
-        
+
         if (platform == null) {
             log.debug("Unable to determine platform from endpoint ARN: "
                     + sanitizeLogInput(pushDeviceData.getDeviceHandle()));
@@ -328,6 +344,9 @@ public class AmazonSNSPushProvider implements PushProvider {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<String, String> preProcessProperties(PushSenderData pushSenderData) throws PushProviderException {
 
@@ -346,6 +365,9 @@ public class AmazonSNSPushProvider implements PushProvider {
         return properties;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<String, String> postProcessProperties(PushSenderData pushSenderData) throws PushProviderException {
         if (log.isDebugEnabled()) {
@@ -358,11 +380,17 @@ public class AmazonSNSPushProvider implements PushProvider {
         return pushSenderData.getProperties();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateCredentials(PushSenderData pushSenderData, String s) throws PushProviderException {
         // No-op for SNS as credentials are managed via secret manager.
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<String, String> storePushProviderSecretProperties(PushSenderData pushSenderData)
             throws PushProviderException {
@@ -412,7 +440,9 @@ public class AmazonSNSPushProvider implements PushProvider {
         }
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<String, String> retrievePushProviderSecretProperties(PushSenderData pushSenderData)
             throws PushProviderException {
@@ -458,6 +488,9 @@ public class AmazonSNSPushProvider implements PushProvider {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void deletePushProviderSecretProperties(PushSenderData pushSenderData) throws PushProviderException {
         if (log.isDebugEnabled()) {
@@ -467,12 +500,12 @@ public class AmazonSNSPushProvider implements PushProvider {
         try {
             Map<String, String> properties = pushSenderData.getProperties();
             String secretReference = properties.get(SNSPushProviderConstants.SNS_SECRET_ACCESS_KEY);
-            
+
             if (StringUtils.isBlank(secretReference)) {
                 log.debug("No secret reference found in properties. No deletion required.");
                 return;
             }
-            
+
             SecretManager secretManager = SNSProviderDataHolder.getInstance().getSecretManager();
             if (secretManager.isSecretExist(PUSH_PROVIDER_SECRET_TYPE, secretReference)) {
                 log.debug("Secret exists. Deleting secret from secret manager.");
@@ -571,6 +604,13 @@ public class AmazonSNSPushProvider implements PushProvider {
         return endpointAttributes;
     }
 
+    /**
+     * Create and return an Amazon SNS client configured with the given properties.
+     *
+     * @param properties Map containing SNS access key ID, secret access key, and region.
+     * @return Configured {@link SnsClient} instance.
+     * @throws PushProviderException If the client cannot be created.
+     */
     protected SnsClient getSNSClient(Map<String, String> properties) throws PushProviderException {
         String accessKeyId = properties.get(SNSPushProviderConstants.SNS_ACCESS_KEY_ID);
         String secretAccessKey = properties.get(SNSPushProviderConstants.SNS_SECRET_ACCESS_KEY);
@@ -580,8 +620,11 @@ public class AmazonSNSPushProvider implements PushProvider {
                 AwsBasicCredentials.create(accessKeyId, secretAccessKey)
         );
 
-        return SnsClient.builder().region(Region.of(region)).credentialsProvider(credentialsProvider).
-                httpClientBuilder(Apache5HttpClient.builder()).build();
+        return SnsClient.builder()
+                .region(Region.of(region))
+                .credentialsProvider(credentialsProvider)
+                .httpClientBuilder(Apache5HttpClient.builder())
+                .build();
     }
 
     private static String sanitizeLogInput(String input) {

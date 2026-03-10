@@ -27,6 +27,10 @@ import java.util.Map;
  */
 public class NotificationTemplates {
 
+    private NotificationTemplates() {
+
+    }
+
     private static final String DEFAULT_MESSAGE_KEY = "default";
 
     /**
@@ -68,6 +72,11 @@ public class NotificationTemplates {
     /**
      * Build APNS (Apple Push Notification Service) message.
      * Format: {"aps":{"alert":{"title":"...","body":"..."},"sound":"default"},"customData":{...}}
+     *
+     * @param title          Notification title.
+     * @param body           Notification body.
+     * @param additionalData Additional data to send with the notification.
+     * @return JSON string in APNS message format.
      */
     private static String buildAPNSMessage(String title, String body, Map<String, String> additionalData) {
 
@@ -99,6 +108,11 @@ public class NotificationTemplates {
     /**
      * Build FCM (Firebase Cloud Messaging) / GCM message.
      * Format: {"notification":{"title":"...","body":"..."},"data":{...}}
+     *
+     * @param title          Notification title.
+     * @param body           Notification body.
+     * @param additionalData Additional data to send with the notification.
+     * @return JSON string in FCM message format.
      */
     private static String buildFCMMessage(String title, String body, Map<String, String> additionalData) {
 
@@ -125,6 +139,11 @@ public class NotificationTemplates {
     /**
      * Build ADM (Amazon Device Messaging) message.
      * Format: {"data":{"title":"...","message":"...","additionalData":{...}}}
+     *
+     * @param title          Notification title.
+     * @param body           Notification body.
+     * @param additionalData Additional data to send with the notification.
+     * @return JSON string in ADM message format.
      */
     private static String buildADMMessage(String title, String body, Map<String, String> additionalData) {
 
@@ -152,6 +171,11 @@ public class NotificationTemplates {
     /**
      * Build Baidu Cloud Push message.
      * Format: {"title":"...","description":"...","custom_content":{...}}
+     *
+     * @param title          Notification title.
+     * @param body           Notification body.
+     * @param additionalData Additional data to send with the notification.
+     * @return JSON string in Baidu message format.
      */
     private static String buildBaiduMessage(String title, String body, Map<String, String> additionalData) {
 
@@ -174,7 +198,12 @@ public class NotificationTemplates {
 
     /**
      * Build WNS (Windows Push Notification Services) message.
-     * Format: Toast notification XML wrapped in JSON
+     * Format: Toast notification XML wrapped in JSON.
+     *
+     * @param title          Notification title.
+     * @param body           Notification body.
+     * @param additionalData Additional data to send with the notification.
+     * @return XML string in WNS toast notification format.
      */
     private static String buildWNSMessage(String title, String body, Map<String, String> additionalData) {
 
@@ -195,7 +224,12 @@ public class NotificationTemplates {
 
     /**
      * Build MPNS (Microsoft Push Notification Service) message.
-     * Format: Toast notification XML
+     * Format: Toast notification XML.
+     *
+     * @param title          Notification title.
+     * @param body           Notification body.
+     * @param additionalData Additional data to send with the notification.
+     * @return XML string in MPNS toast notification format.
      */
     private static String buildMPNSMessage(String title, String body, Map<String, String> additionalData) {
 

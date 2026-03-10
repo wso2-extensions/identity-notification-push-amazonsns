@@ -43,17 +43,33 @@ public enum SNSPlatformApplication {
      */
     private final String awsPlatformName;
 
+    /**
+     * Constructor for SNSPlatformApplication.
+     *
+     * @param name            Internal reference name for the platform.
+     * @param awsPlatformName AWS-specific platform name used in ARN construction.
+     */
     SNSPlatformApplication(String name, String awsPlatformName) {
 
         this.name = name;
         this.awsPlatformName = awsPlatformName;
     }
 
+    /**
+     * Get the internal reference name of the platform.
+     *
+     * @return Internal reference name.
+     */
     public String getName() {
 
         return name;
     }
 
+    /**
+     * Get the AWS-specific platform name.
+     *
+     * @return AWS platform name used in ARN construction.
+     */
     public String getAwsPlatformName() {
 
         return awsPlatformName;
@@ -61,6 +77,12 @@ public enum SNSPlatformApplication {
 
     private static final SNSPlatformApplication[] ENUM_VALUES = values();
 
+    /**
+     * Get the SNSPlatformApplication by its internal reference name.
+     *
+     * @param name Internal reference name of the platform.
+     * @return Matching {@link SNSPlatformApplication}, or null if not found.
+     */
     public static SNSPlatformApplication getByName(String name) {
 
         name = name.trim().toLowerCase(Locale.ENGLISH);
@@ -72,6 +94,12 @@ public enum SNSPlatformApplication {
         return null;
     }
 
+    /**
+     * Get the SNSPlatformApplication by extracting the platform from an endpoint ARN.
+     *
+     * @param endpointArn AWS SNS endpoint ARN string.
+     * @return Matching {@link SNSPlatformApplication}, or null if not found.
+     */
     public static SNSPlatformApplication getByEndpointArn(String endpointArn) {
 
         if (endpointArn == null || endpointArn.isEmpty()) {
@@ -83,7 +111,7 @@ public enum SNSPlatformApplication {
             return null;
         }
         String platformName = arnParts[1]; // Platform is the second part after splitting
-        
+
         for (SNSPlatformApplication platform : ENUM_VALUES) {
             if (platform.getAwsPlatformName().equalsIgnoreCase(platformName)) {
                 return platform;

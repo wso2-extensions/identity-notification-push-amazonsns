@@ -34,6 +34,11 @@ public class SNSProviderDataHolder {
 
     }
 
+    /**
+     * Get the singleton instance of SNSProviderDataHolder.
+     *
+     * @return Singleton {@link SNSProviderDataHolder} instance.
+     */
     public static SNSProviderDataHolder getInstance() {
 
         return instance;

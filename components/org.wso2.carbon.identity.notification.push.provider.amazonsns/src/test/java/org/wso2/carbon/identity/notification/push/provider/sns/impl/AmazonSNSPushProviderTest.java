@@ -62,7 +62,8 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.wso2.carbon.identity.notification.push.provider.constant.PushProviderConstants.PUSH_PROVIDER_SECRET_TYPE;
+import static org.wso2.carbon.identity.notification.push.provider.constant.
+        PushProviderConstants.PUSH_PROVIDER_SECRET_TYPE;
 
 /**
  * Amazon SNS Push Provider Test.
