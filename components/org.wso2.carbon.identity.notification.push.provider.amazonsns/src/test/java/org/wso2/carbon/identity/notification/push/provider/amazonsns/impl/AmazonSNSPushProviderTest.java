@@ -335,7 +335,7 @@ public class AmazonSNSPushProviderTest {
         }
     }
 
-    @Test(priority = 9, expectedExceptions = {PushProviderException.class})
+    @Test(priority = 8, expectedExceptions = {PushProviderException.class})
     public void testSendNotificationFailWithEndpointNotFound() throws PushProviderException {
         Map<String, String> properties = createValidProperties();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -364,7 +364,7 @@ public class AmazonSNSPushProviderTest {
         }
     }
 
-    @Test(priority = 10, expectedExceptions = {PushProviderException.class})
+    @Test(priority = 9, expectedExceptions = {PushProviderException.class})
     public void testSendNotificationFailWithNotFoundException() throws PushProviderException {
         Map<String, String> properties = createValidProperties();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -393,7 +393,7 @@ public class AmazonSNSPushProviderTest {
         }
     }
 
-    @Test(priority = 11, expectedExceptions = {PushProviderException.class})
+    @Test(priority = 10, expectedExceptions = {PushProviderException.class})
     public void testSendNotificationFailWithAuthorizationErrorException() throws PushProviderException {
         Map<String, String> properties = createValidProperties();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -422,7 +422,7 @@ public class AmazonSNSPushProviderTest {
         }
     }
 
-    @Test(priority = 12, expectedExceptions = {PushProviderException.class})
+    @Test(priority = 11, expectedExceptions = {PushProviderException.class})
     public void testSendNotificationFailWithGenericSnsException() throws PushProviderException {
         Map<String, String> properties = createValidProperties();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -453,7 +453,7 @@ public class AmazonSNSPushProviderTest {
 
     // ==================== Test registerDevice() - Success Cases ====================
 
-    @Test(priority = 13)
+    @Test(priority = 12)
     public void testRegisterDeviceSuccess() throws PushProviderException {
         Map<String, String> properties = createValidPropertiesWithPlatformArn();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -478,7 +478,7 @@ public class AmazonSNSPushProviderTest {
         verify(snsClient, times(1)).createPlatformEndpoint(any(CreatePlatformEndpointRequest.class));
     }
 
-    @Test(priority = 14)
+    @Test(priority = 13)
     public void testRegisterDeviceSuccessWithBaiduPlatform() throws PushProviderException {
         Map<String, String> properties = createValidProperties();
         properties.put(SNSPushProviderConstants.SNS_PLATFORM_ARNS + 
@@ -506,7 +506,7 @@ public class AmazonSNSPushProviderTest {
         verify(snsClient, times(1)).createPlatformEndpoint(any(CreatePlatformEndpointRequest.class));
     }
 
-    @Test(priority = 15)
+    @Test(priority = 14)
     public void testRegisterDeviceWithExistingEndpoint() throws PushProviderException {
         Map<String, String> properties = createValidPropertiesWithPlatformArn();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -535,7 +535,7 @@ public class AmazonSNSPushProviderTest {
 
     // ==================== Test registerDevice() - Failure Cases ====================
 
-    @Test(priority = 16, expectedExceptions = {PushProviderServerException.class})
+    @Test(priority = 15, expectedExceptions = {PushProviderServerException.class})
     public void testRegisterDeviceFailWithInvalidCredentials() throws PushProviderException {
         Map<String, String> properties = new HashMap<>();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -549,7 +549,7 @@ public class AmazonSNSPushProviderTest {
         snsPushProvider.registerDevice(deviceData, pushSenderData);
     }
 
-    @Test(priority = 17, expectedExceptions = {PushProviderClientException.class})
+    @Test(priority = 16, expectedExceptions = {PushProviderClientException.class})
     public void testRegisterDeviceFailWithMissingMetadata() throws PushProviderException {
         Map<String, String> properties = createValidPropertiesWithPlatformArn();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -560,7 +560,7 @@ public class AmazonSNSPushProviderTest {
         snsPushProvider.registerDevice(deviceData, pushSenderData);
     }
 
-    @Test(priority = 18, expectedExceptions = {PushProviderClientException.class})
+    @Test(priority = 17, expectedExceptions = {PushProviderClientException.class})
     public void testRegisterDeviceFailWithMissingPlatform() throws PushProviderException {
         Map<String, String> properties = createValidPropertiesWithPlatformArn();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -573,7 +573,7 @@ public class AmazonSNSPushProviderTest {
         snsPushProvider.registerDevice(deviceData, pushSenderData);
     }
 
-    @Test(priority = 19, expectedExceptions = {PushProviderClientException.class})
+    @Test(priority = 18, expectedExceptions = {PushProviderClientException.class})
     public void testRegisterDeviceFailWithInvalidPlatform() throws PushProviderException {
         Map<String, String> properties = createValidPropertiesWithPlatformArn();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -587,7 +587,7 @@ public class AmazonSNSPushProviderTest {
         snsPushProvider.registerDevice(deviceData, pushSenderData);
     }
 
-    @Test(priority = 20, expectedExceptions = {PushProviderClientException.class})
+    @Test(priority = 19, expectedExceptions = {PushProviderClientException.class})
     public void testRegisterDeviceFailWithMissingBaiduUserId() throws PushProviderException {
         Map<String, String> properties = createValidProperties();
         properties.put(SNSPushProviderConstants.SNS_PLATFORM_ARNS + 
@@ -603,7 +603,7 @@ public class AmazonSNSPushProviderTest {
         snsPushProvider.registerDevice(deviceData, pushSenderData);
     }
 
-    @Test(priority = 21, expectedExceptions = {PushProviderServerException.class})
+    @Test(priority = 20, expectedExceptions = {PushProviderServerException.class})
     public void testRegisterDeviceFailWithMissingPlatformArn() throws PushProviderException {
         Map<String, String> properties = createValidProperties();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -617,7 +617,7 @@ public class AmazonSNSPushProviderTest {
         snsPushProvider.registerDevice(deviceData, pushSenderData);
     }
 
-    @Test(priority = 22, expectedExceptions = {PushProviderException.class})
+    @Test(priority = 21, expectedExceptions = {PushProviderException.class})
     public void testRegisterDeviceFailWithInvalidParameterException() throws PushProviderException {
         Map<String, String> properties = createValidPropertiesWithPlatformArn();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -643,7 +643,7 @@ public class AmazonSNSPushProviderTest {
         testProvider.registerDevice(deviceData, pushSenderData);
     }
 
-    @Test(priority = 23, expectedExceptions = {PushProviderException.class})
+    @Test(priority = 22, expectedExceptions = {PushProviderException.class})
     public void testRegisterDeviceFailWithExistingEndpointButNoArn() throws PushProviderException {
         Map<String, String> properties = createValidPropertiesWithPlatformArn();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -669,7 +669,7 @@ public class AmazonSNSPushProviderTest {
         testProvider.registerDevice(deviceData, pushSenderData);
     }
 
-    @Test(priority = 24, expectedExceptions = {PushProviderException.class})
+    @Test(priority = 23, expectedExceptions = {PushProviderException.class})
     public void testRegisterDeviceFailWithNotFoundException() throws PushProviderException {
         Map<String, String> properties = createValidPropertiesWithPlatformArn();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -694,7 +694,7 @@ public class AmazonSNSPushProviderTest {
         testProvider.registerDevice(deviceData, pushSenderData);
     }
 
-    @Test(priority = 25, expectedExceptions = {PushProviderException.class})
+    @Test(priority = 24, expectedExceptions = {PushProviderException.class})
     public void testRegisterDeviceFailWithSnsException() throws PushProviderException {
         Map<String, String> properties = createValidPropertiesWithPlatformArn();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -721,7 +721,7 @@ public class AmazonSNSPushProviderTest {
 
     // ==================== Test unregisterDevice() - Success Cases ====================
 
-    @Test(priority = 26)
+    @Test(priority = 25)
     public void testUnregisterDeviceSuccess() throws PushProviderException {
         Map<String, String> properties = createValidProperties();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -739,7 +739,7 @@ public class AmazonSNSPushProviderTest {
         verify(snsClient, times(1)).deleteEndpoint(any(Consumer.class));
     }
 
-    @Test(priority = 27)
+    @Test(priority = 26)
     public void testUnregisterDeviceWithBlankDeviceHandle() throws PushProviderException {
         Map<String, String> properties = createValidProperties();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -752,7 +752,7 @@ public class AmazonSNSPushProviderTest {
 
     // ==================== Test unregisterDevice() - Failure Cases ====================
 
-    @Test(priority = 29, expectedExceptions = {PushProviderException.class})
+    @Test(priority = 27, expectedExceptions = {PushProviderException.class})
     public void testUnregisterDeviceFailWithSnsException() throws PushProviderException {
         Map<String, String> properties = createValidProperties();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -772,7 +772,7 @@ public class AmazonSNSPushProviderTest {
         testProvider.unregisterDevice(deviceData, pushSenderData);
     }
 
-    @Test(priority = 30, expectedExceptions = {PushProviderException.class})
+    @Test(priority = 28, expectedExceptions = {PushProviderException.class})
     public void testUnregisterDeviceFailWithAuthorizationErrorException() throws PushProviderException {
         Map<String, String> properties = createValidProperties();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -794,7 +794,7 @@ public class AmazonSNSPushProviderTest {
 
     // ==================== Test updateDevice() - Success Cases ====================
 
-    @Test(priority = 31)
+    @Test(priority = 29)
     public void testUpdateDeviceSuccess() throws PushProviderException {
         Map<String, String> properties = createValidProperties();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -812,7 +812,7 @@ public class AmazonSNSPushProviderTest {
         verify(snsClient, times(1)).setEndpointAttributes(any(Consumer.class));
     }
 
-    @Test(priority = 32)
+    @Test(priority = 30)
     public void testUpdateDeviceSuccessWithBaiduPlatform() throws PushProviderException {
         Map<String, String> properties = createValidProperties();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -834,7 +834,7 @@ public class AmazonSNSPushProviderTest {
 
     // ==================== Test updateDevice() - Failure Cases ====================
 
-    @Test(priority = 34, expectedExceptions = {PushProviderServerException.class})
+    @Test(priority = 31, expectedExceptions = {PushProviderServerException.class})
     public void testUpdateDeviceFailWithNullPlatform() throws PushProviderException {
         Map<String, String> properties = createValidProperties();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -845,7 +845,7 @@ public class AmazonSNSPushProviderTest {
         snsPushProvider.updateDevice(deviceData, pushSenderData);
     }
 
-    @Test(priority = 35, expectedExceptions = {PushProviderException.class})
+    @Test(priority = 32, expectedExceptions = {PushProviderException.class})
     public void testUpdateDeviceFailWithNotFoundException() throws PushProviderException {
         Map<String, String> properties = createValidProperties();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -865,7 +865,7 @@ public class AmazonSNSPushProviderTest {
         testProvider.updateDevice(deviceData, pushSenderData);
     }
 
-    @Test(priority = 36, expectedExceptions = {PushProviderException.class})
+    @Test(priority = 33, expectedExceptions = {PushProviderException.class})
     public void testUpdateDeviceFailWithSnsException() throws PushProviderException {
         Map<String, String> properties = createValidProperties();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -887,7 +887,7 @@ public class AmazonSNSPushProviderTest {
 
     // ==================== Test preProcessProperties() ====================
 
-    @Test(priority = 37)
+    @Test(priority = 34)
     public void testPreProcessPropertiesSuccess() throws PushProviderException {
         Map<String, String> properties = createValidProperties();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -899,7 +899,7 @@ public class AmazonSNSPushProviderTest {
         Assert.assertEquals(processedProperties.get(SNSPushProviderConstants.SNS_ACCESS_KEY_ID), TEST_ACCESS_KEY_ID);
     }
 
-    @Test(priority = 38, expectedExceptions = {PushProviderServerException.class})
+    @Test(priority = 35, expectedExceptions = {PushProviderServerException.class})
     public void testPreProcessPropertiesFail() throws PushProviderException {
         Map<String, String> properties = new HashMap<>();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -907,7 +907,7 @@ public class AmazonSNSPushProviderTest {
         snsPushProvider.preProcessProperties(pushSenderData);
     }
 
-    @Test(priority = 39, expectedExceptions = {PushProviderServerException.class})
+    @Test(priority = 36, expectedExceptions = {PushProviderServerException.class})
     public void testPreProcessPropertiesFailWithMissingAccessKeyId() throws PushProviderException {
         Map<String, String> properties = new HashMap<>();
         properties.put(SNSPushProviderConstants.SNS_SECRET_ACCESS_KEY, TEST_SECRET_ACCESS_KEY);
@@ -917,7 +917,7 @@ public class AmazonSNSPushProviderTest {
         snsPushProvider.preProcessProperties(pushSenderData);
     }
 
-    @Test(priority = 40, expectedExceptions = {PushProviderServerException.class})
+    @Test(priority = 37, expectedExceptions = {PushProviderServerException.class})
     public void testPreProcessPropertiesFailWithMissingSecretAccessKey() throws PushProviderException {
         Map<String, String> properties = new HashMap<>();
         properties.put(SNSPushProviderConstants.SNS_ACCESS_KEY_ID, TEST_ACCESS_KEY_ID);
@@ -927,7 +927,7 @@ public class AmazonSNSPushProviderTest {
         snsPushProvider.preProcessProperties(pushSenderData);
     }
 
-    @Test(priority = 41, expectedExceptions = {PushProviderServerException.class})
+    @Test(priority = 38, expectedExceptions = {PushProviderServerException.class})
     public void testPreProcessPropertiesFailWithMissingRegion() throws PushProviderException {
         Map<String, String> properties = new HashMap<>();
         properties.put(SNSPushProviderConstants.SNS_ACCESS_KEY_ID, TEST_ACCESS_KEY_ID);
@@ -939,7 +939,7 @@ public class AmazonSNSPushProviderTest {
 
     // ==================== Test postProcessProperties() ====================
 
-    @Test(priority = 42)
+    @Test(priority = 39)
     public void testPostProcessPropertiesSuccess() throws PushProviderException {
         Map<String, String> properties = createValidProperties();
         when(pushSenderData.getProperties()).thenReturn(properties);
@@ -952,7 +952,7 @@ public class AmazonSNSPushProviderTest {
 
     // ==================== Test updateCredentials() ====================
 
-    @Test(priority = 43)
+    @Test(priority = 40)
     public void testUpdateCredentials() throws PushProviderException {
         when(pushSenderData.getProviderId()).thenReturn(TEST_PROVIDER_ID);
 
@@ -962,7 +962,7 @@ public class AmazonSNSPushProviderTest {
 
     // ==================== Test storePushProviderSecretProperties() ====================
 
-    @Test(priority = 44)
+    @Test(priority = 41)
     public void testStoreNewPushProviderSecretProperties()
             throws PushProviderException, SecretManagementException {
         Map<String, String> properties = new HashMap<>();
@@ -992,7 +992,7 @@ public class AmazonSNSPushProviderTest {
         }
     }
 
-    @Test(priority = 45)
+    @Test(priority = 42)
     public void testUpdateExistingPushProviderSecretProperties()
             throws PushProviderException, SecretManagementException {
         Map<String, String> properties = new HashMap<>();
@@ -1022,7 +1022,7 @@ public class AmazonSNSPushProviderTest {
         }
     }
 
-    @Test(priority = 46, expectedExceptions = {PushProviderServerException.class})
+    @Test(priority = 43, expectedExceptions = {PushProviderServerException.class})
     public void testStorePushProviderSecretPropertiesFailWithMissingSecret() throws PushProviderException {
         Map<String, String> properties = new HashMap<>();
         properties.put(SNSPushProviderConstants.SNS_SECRET_ACCESS_KEY, "");
@@ -1032,7 +1032,7 @@ public class AmazonSNSPushProviderTest {
         snsPushProvider.storePushProviderSecretProperties(pushSenderData);
     }
 
-    @Test(priority = 47, expectedExceptions = {PushProviderServerException.class})
+    @Test(priority = 44, expectedExceptions = {PushProviderServerException.class})
     public void testStorePushProviderSecretPropertiesFailWithNullSecret() throws PushProviderException {
         Map<String, String> properties = new HashMap<>();
         properties.put(SNSPushProviderConstants.SNS_SECRET_ACCESS_KEY, null);
@@ -1042,7 +1042,7 @@ public class AmazonSNSPushProviderTest {
         snsPushProvider.storePushProviderSecretProperties(pushSenderData);
     }
 
-    @Test(priority = 48, expectedExceptions = {PushProviderException.class})
+    @Test(priority = 45, expectedExceptions = {PushProviderException.class})
     public void testStorePushProviderSecretPropertiesFailWithSecretManagementException()
             throws PushProviderException, SecretManagementException {
         Map<String, String> properties = new HashMap<>();
@@ -1065,7 +1065,7 @@ public class AmazonSNSPushProviderTest {
 
     // ==================== Test retrievePushProviderSecretProperties() ====================
 
-    @Test(priority = 49)
+    @Test(priority = 46)
     public void testRetrievePushProviderSecretPropertiesSuccess()
             throws PushProviderException, SecretManagementException {
         Map<String, String> properties = new HashMap<>();
@@ -1096,7 +1096,7 @@ public class AmazonSNSPushProviderTest {
         }
     }
 
-    @Test(priority = 50, expectedExceptions = {PushProviderServerException.class})
+    @Test(priority = 47, expectedExceptions = {PushProviderServerException.class})
     public void testRetrievePushProviderSecretPropertiesFailWithMissingReference() throws PushProviderException {
         Map<String, String> properties = new HashMap<>();
         properties.put(SNSPushProviderConstants.SNS_SECRET_ACCESS_KEY, "");
@@ -1106,7 +1106,7 @@ public class AmazonSNSPushProviderTest {
         snsPushProvider.retrievePushProviderSecretProperties(pushSenderData);
     }
 
-    @Test(priority = 51, expectedExceptions = {PushProviderServerException.class})
+    @Test(priority = 48, expectedExceptions = {PushProviderServerException.class})
     public void testRetrievePushProviderSecretPropertiesFailWithNullReference() throws PushProviderException {
         Map<String, String> properties = new HashMap<>();
         properties.put(SNSPushProviderConstants.SNS_SECRET_ACCESS_KEY, null);
@@ -1116,7 +1116,7 @@ public class AmazonSNSPushProviderTest {
         snsPushProvider.retrievePushProviderSecretProperties(pushSenderData);
     }
 
-    @Test(priority = 52, expectedExceptions = {PushProviderException.class})
+    @Test(priority = 49, expectedExceptions = {PushProviderException.class})
     public void testRetrievePushProviderSecretPropertiesFailWithNonExistentSecret()
             throws PushProviderException, SecretManagementException {
         Map<String, String> properties = new HashMap<>();
@@ -1136,7 +1136,7 @@ public class AmazonSNSPushProviderTest {
         }
     }
 
-    @Test(priority = 53, expectedExceptions = {PushProviderException.class})
+    @Test(priority = 50, expectedExceptions = {PushProviderException.class})
     public void testRetrievePushProviderSecretPropertiesFailWithSecretManagementException()
             throws PushProviderException, SecretManagementException {
         Map<String, String> properties = new HashMap<>();
@@ -1159,7 +1159,7 @@ public class AmazonSNSPushProviderTest {
 
     // ==================== Test deletePushProviderSecretProperties() ====================
 
-    @Test(priority = 54)
+    @Test(priority = 51)
     public void testDeletePushProviderSecretPropertiesSuccess()
             throws PushProviderException, SecretManagementException {
         Map<String, String> properties = new HashMap<>();
@@ -1181,7 +1181,7 @@ public class AmazonSNSPushProviderTest {
         }
     }
 
-    @Test(priority = 55)
+    @Test(priority = 52)
     public void testDeletePushProviderSecretPropertiesWithBlankReference() throws PushProviderException {
         Map<String, String> properties = new HashMap<>();
         properties.put(SNSPushProviderConstants.SNS_SECRET_ACCESS_KEY, "");
@@ -1192,7 +1192,7 @@ public class AmazonSNSPushProviderTest {
         // Should complete without exception
     }
 
-    @Test(priority = 56)
+    @Test(priority = 53)
     public void testDeletePushProviderSecretPropertiesWithNonExistentSecret()
             throws PushProviderException, SecretManagementException {
         Map<String, String> properties = new HashMap<>();
@@ -1213,7 +1213,7 @@ public class AmazonSNSPushProviderTest {
         }
     }
 
-    @Test(priority = 57, expectedExceptions = {PushProviderException.class})
+    @Test(priority = 54, expectedExceptions = {PushProviderException.class})
     public void testDeletePushProviderSecretPropertiesFailWithSecretManagementException()
             throws PushProviderException, SecretManagementException {
         Map<String, String> properties = new HashMap<>();
