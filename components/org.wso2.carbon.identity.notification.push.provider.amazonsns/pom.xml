@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2026, WSO2 LLC. (http://www.wso2.com).
+  ~
+  ~ WSO2 LLC. licenses this file to you under the Apache License,
+  ~ Version 2.0 (the "License"); you may not use this file except
+  ~ in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.wso2.carbon.identity.notification.push</groupId>
+        <artifactId>identity-notification-push-provider-amazonsns</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>org.wso2.carbon.identity.notification.push.provider.amazonsns</artifactId>
+    <packaging>bundle</packaging>
+    <name>Push Notification - Amazon SNS Provider</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.wso2.orbit.software.amazon.awssdk</groupId>
+            <artifactId>aws-sns</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon.identity.notification.push</groupId>
+            <artifactId>org.wso2.carbon.identity.notification.push.provider</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon.identity.framework</groupId>
+            <artifactId>org.wso2.carbon.identity.secret.mgt.core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.json.wso2</groupId>
+            <artifactId>json</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.scr.ds-annotations</artifactId>
+            <version>1.2.10</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                        <Bundle-Name>${project.name}</Bundle-Name>
+
+                        <Private-Package>
+                            org.wso2.carbon.identity.notification.push.provider.amazonsns.internal,
+                            org.wso2.carbon.identity.notification.push.provider.amazonsns.constants
+                        </Private-Package>
+
+                        <Export-Package>
+                            !org.wso2.carbon.identity.notification.push.provider.amazonsns.internal,
+                            !org.wso2.carbon.identity.notification.push.provider.amazonsns.constants,
+                            org.wso2.carbon.identity.notification.push.provider.amazonsns.impl;
+                            version="${project.version}"
+                        </Export-Package>
+
+                        <Import-Package>
+                            org.wso2.carbon.identity.notification.push.provider;
+                            version="${carbon.identity.notification.push.imp.pkg.version.range}",
+                            org.wso2.carbon.identity.notification.push.provider.constant;
+                            version="${carbon.identity.notification.push.imp.pkg.version.range}",
+                            org.wso2.carbon.identity.notification.push.provider.exception;
+                            version="${carbon.identity.notification.push.imp.pkg.version.range}",
+                            org.wso2.carbon.identity.notification.push.provider.model;
+                            version="${carbon.identity.notification.push.imp.pkg.version.range}",
+                            org.wso2.carbon.identity.secret.mgt.core;
+                            version="${carbon.identity.framework.imp.pkg.version.range}",
+                            org.wso2.carbon.identity.secret.mgt.core.exception;
+                            version="${carbon.identity.framework.imp.pkg.version.range}",
+                            org.wso2.carbon.identity.secret.mgt.core.model;
+                            version="${carbon.identity.framework.imp.pkg.version.range}",
+
+                            org.apache.commons.logging.*; version="${commons.logging.range}",
+                            org.osgi.framework; version="${osgi.framework.imp.pkg.version.range}",
+                            org.osgi.service.component; version="${osgi.service.component.imp.pkg.version.range}",
+
+                            software.amazon.awssdk.auth.credentials,
+                            software.amazon.awssdk.awscore.exception,
+                            software.amazon.awssdk.http,
+                            software.amazon.awssdk.http.apache5,
+                            software.amazon.awssdk.regions,
+                            software.amazon.awssdk.services.sns,
+                            software.amazon.awssdk.services.sns.model,
+
+                            org.json
+                        </Import-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
