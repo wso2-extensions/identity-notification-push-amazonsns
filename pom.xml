@@ -35,6 +35,13 @@
     <name>WSO2 Carbon - Identity Notification Push Amazon SNS</name>
     <description>AWS SNS Push Provider Extension for WSO2 Identity Server</description>
 
+    <scm>
+        <url>https://github.com/wso2-extensions/identity-notification-push-amazonsns.git</url>
+        <developerConnection>scm:git:https://github.com/wso2-extensions/identity-notification-push-amazonsns.git</developerConnection>
+        <connection>scm:git:https://github.com/wso2-extensions/identity-notification-push-amazonsns.git</connection>
+        <tag>HEAD</tag>
+    </scm>
+
     <modules>
         <module>components/org.wso2.carbon.identity.notification.push.provider.amazonsns</module>
         <module>features/org.wso2.carbon.identity.notification.push.provider.amazonsns.feature</module>
@@ -69,6 +76,8 @@
         <carbon.identity.notification.push.imp.pkg.version.range>[1.0.0, 2.0.0)</carbon.identity.notification.push.imp.pkg.version.range>
         <carbon.identity.framework.imp.pkg.version.range>[7.0.0, 8.0.0)</carbon.identity.framework.imp.pkg.version.range>
         <commons.logging.range>[1.2.0, 2.0.0)</commons.logging.range>
+
+        <project.scm.id>my-scm-server</project.scm.id>
     </properties>
 
     <dependencyManagement>
